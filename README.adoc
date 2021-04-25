@@ -1,4 +1,4 @@
-= Shido
+= Shīdo
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -9,16 +9,22 @@ endif::[]
 :toc: left
 :toclevels: 5
 
-Shido is a 3D game framework which aims to be simple and powerful. It is similar to projects like https://love2d.org/[LÖVE].
+*Shīdo* (*シード*) is a 3D game framework which aims to be simple and powerful. It shares similarities with the https://love2d.org/[LÖVE] framework.
 
 .The framework is made up of:
 - A *C* API, the *shido* shared/dynamic library.
-- A Lua(JIT) API, built on the *C* API.
+- A Lua(JIT) API, built on the *C* API with the FFI.
 - A runtime environment to launch an app.
 
-NOTE: This way different levels of abstractions are available to get simplicity and control.
+NOTE: The *C* library, although independently usable, is not designed to be a standalone API for the framework. The Lua API is at the highest level and calls the C API, allowing users to access multiple levels of abstraction when necessary. Thus, some parts of the framework may be exclusively written in Lua.
 
 .The framework is built on some major dependencies:
+- The https://www.libsdl.org/index.php[SDL2] library.
 - The https://github.com/google/filament[Filament] rendering engine.
 - The https://github.com/bulletphysics/bullet3[Bullet Physics] engine.
 - The http://luajit.org/luajit.html[LuaJIT] VM.
+
+.Available runtime dynamic libraries:
+- `lua51`: LuaJIT's dynamic library.
+
+WARNING: Other libraries are either not available or not guaranteed to be available.
