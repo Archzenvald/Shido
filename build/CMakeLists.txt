@@ -17,8 +17,11 @@ link_directories(${LIB_DIRS})
 include_directories(${INC_DIRS})
 
 # sources
-set(SRCS
-  main.cpp
+set(H_SRCS
+  ../src/c/core.h
+)
+set(I_SRCS
+  ../src/c/core.cpp
 )
 
 # libs
@@ -27,7 +30,7 @@ set(LIBS
   pthread
   dl
 )
-set(FI_LIBS
+set(FILAMENT_LIBS
   filament
   backend
   ibl
@@ -40,11 +43,29 @@ set(FI_LIBS
   utils
   smol-v
 )
-foreach(LIB ${FI_LIBS})
+foreach(LIB ${FILAMENT_LIBS})
   add_library(${LIB} STATIC IMPORTED)
   set_target_properties(${LIB} PROPERTIES IMPORTED_LOCATION ${FILAMENT_BUILD}/lib/lib${LIB}.a)
 endforeach()
 
-# build
-add_executable(run main.cpp)
-target_link_libraries(run ${LIBS} ${FI_LIBS})
+# build shido lib
+add_library(shido SHARED ${H_SRCS} ${I_SRCS})
+target_link_libraries(shido ${LIBS} ${FILAMENT_LIBS})
+
+# build C includes
+## copy script
+file(WRITE ${CMAKE_BINARY_DIR}/copy_includes.cmake
+  "file(COPY ${CMAKE_SOURCE_DIR}/../src/c/ DESTINATION include/shido/ FILES_MATCHING PATTERN *.h)\n"
+  )
+add_custom_command(TARGET shido
+  POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -P ${CMAKE_BINARY_DIR}/copy_includes.cmake)
+
+# build Lua API
+add_custom_target(shido-lua ALL
+  COMMAND ${CMAKE_COMMAND} -E copy_directory
+  ../src/lua/ shido)
+
+# build shido executable
+add_executable(shido-run ../src/main.cpp)
+target_link_libraries(shido-run shido)
