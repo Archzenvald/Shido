@@ -5,6 +5,7 @@ project(shido)
 
 # options
 option(FILAMENT_BUILD "Filament's debug/release build path." "filament/release")
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
 # dirs
 set(LIB_DIRS
@@ -18,7 +19,9 @@ include_directories(${INC_DIRS})
 
 # sources
 set(H_SRCS
+  ../src/c/API.h
   ../src/c/core.h
+  ../src/c/core.hpp
 )
 set(I_SRCS
   ../src/c/core.cpp
@@ -68,4 +71,5 @@ add_custom_target(shido-lua ALL
 
 # build shido executable
 add_executable(shido-run ../src/main.cpp)
+target_include_directories(shido-run PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 target_link_libraries(shido-run shido)
