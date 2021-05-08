@@ -72,4 +72,4 @@ add_custom_target(shido-lua ALL
 # build shido executable
 add_executable(shido-run ../src/main.cpp)
 target_include_directories(shido-run PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
-target_link_libraries(shido-run shido)
+target_link_libraries(shido-run shido luajit-5.1)
