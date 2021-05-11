@@ -22,7 +22,7 @@ NOTE: The *C* library, although independently usable, is not designed to be a st
 - The https://www.libsdl.org/index.php[SDL2] library.
 - The https://github.com/google/filament[Filament] rendering engine.
 - The https://github.com/bulletphysics/bullet3[Bullet Physics] engine.
-- The http://luajit.org/luajit.html[LuaJIT] VM.
+- The http://luajit.org/luajit.html[LuaJIT] (2.1) VM.
 
 .Available runtime dynamic libraries:
 - `lua51`: LuaJIT's dynamic library.
