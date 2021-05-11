@@ -1,13 +1,11 @@
 // https://github.com/Archzenvald/Shido
 // MIT license (see LICENSE, src/c/core.h or src/lua/core.lua)
 
-#ifndef HPP_SHIDO_CORE
-#define HPP_SHIDO_CORE
+#ifndef HPP_SHIDO_GRAPHICS
+#define HPP_SHIDO_GRAPHICS
 
-#include "core.h"
+#include "graphics.h"
 #include <iostream>
-#include <utils/Path.h>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_timer.h>
 
 #endif

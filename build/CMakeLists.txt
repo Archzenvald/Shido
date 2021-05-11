@@ -22,9 +22,12 @@ set(H_SRCS
   ../src/c/API.h
   ../src/c/core.h
   ../src/c/core.hpp
+  ../src/c/graphics.h
+  ../src/c/graphics.hpp
 )
 set(I_SRCS
   ../src/c/core.cpp
+  ../src/c/graphics.cpp
 )
 
 # libs
