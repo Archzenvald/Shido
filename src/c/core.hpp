@@ -10,6 +10,14 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_timer.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <unistd.h>
+#include <time.h>
+#include <sys/time.h>
+#endif
+
 // Core state.
 struct Core{
   Core();

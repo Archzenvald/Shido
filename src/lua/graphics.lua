@@ -19,6 +19,7 @@ function graphics.init() return L.shido_graphics_init() end
 function shido.run()
   local running = true
   while running do
+    print(shido.core.getTime())
     shido.core.sleep(0.016)
   end
 end

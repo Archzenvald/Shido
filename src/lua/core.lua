@@ -31,6 +31,7 @@ const char* shido_core_getWorkingDirectory();
 const char* shido_core_getExecutableDirectory();
 bool shido_core_init();
 void shido_core_sleep(double time);
+double shido_core_getTime();
 ]]
 local L = ffi.load("shido")
 -- init module
@@ -46,5 +47,6 @@ function core.getExecutableDirectory()
 end
 function core.init() return L.shido_core_init() end
 function core.sleep(time) L.shido_core_sleep(time) end
+function core.getTime() return L.shido_core_getTime() end
 
 return core

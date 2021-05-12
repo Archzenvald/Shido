@@ -37,6 +37,7 @@ API const char* shido_core_getWorkingDirectory();
 API const char* shido_core_getExecutableDirectory();
 API bool shido_core_init();
 API void shido_core_sleep(double time);
+API double shido_core_getTime();
 
 #ifdef __cplusplus
 }
