@@ -3,6 +3,24 @@
 
 #include "core.hpp"
 
+Core::Core()
+{
+  status = SDL_Init(0);
+  if(status != 0)
+    std::cerr << "[shido] SDL2 core init failed: " << SDL_GetError() << std::endl;
+}
+
+Core::~Core()
+{
+  SDL_Quit();
+}
+
+Core& Core::get()
+{
+  static Core core;
+  return core;
+}
+
 const char* shido_core_getWorkingDirectory()
 {
   const static utils::Path path = utils::Path::getCurrentDirectory();
@@ -17,15 +35,7 @@ const char* shido_core_getExecutableDirectory()
 
 bool shido_core_init()
 {
-  int status = SDL_Init(0);
-  if(status != 0)
-    std::cerr << "[shido] SDL2 core init failed: " << SDL_GetError() << std::endl;
-  return status;
-}
-
-void shido_core_quit()
-{
-  SDL_Quit();
+  return Core::get().status;
 }
 
 void shido_core_sleep(double time)

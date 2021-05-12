@@ -15,7 +15,5 @@ return function(...)
   if not f then error(err) end
   f(...)
   -- run
-  shido.run()
-  -- quit
-  shido.core.quit()
+  if shido.run then shido.run() end
 end

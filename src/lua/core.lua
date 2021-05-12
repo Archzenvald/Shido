@@ -30,7 +30,6 @@ ffi.cdef[[
 const char* shido_core_getWorkingDirectory();
 const char* shido_core_getExecutableDirectory();
 bool shido_core_init();
-void shido_core_quit();
 void shido_core_sleep(double time);
 ]]
 local L = ffi.load("shido")
@@ -46,7 +45,6 @@ function core.getExecutableDirectory()
   return ffi.string(L.shido_core_getExecutableDirectory())
 end
 function core.init() return L.shido_core_init() end
-function core.quit() L.shido_core_quit() end
 function core.sleep(time) L.shido_core_sleep(time) end
 
 return core

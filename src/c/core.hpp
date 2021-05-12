@@ -10,4 +10,13 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_timer.h>
 
+// Core state.
+struct Core{
+  Core();
+  ~Core();
+  static Core& get();
+  //
+  int status;
+};
+
 #endif
