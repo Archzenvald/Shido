@@ -24,10 +24,13 @@ set(H_SRCS
   ../src/c/core.hpp
   ../src/c/graphics.h
   ../src/c/graphics.hpp
+  ../src/c/event.h
+  ../src/c/event.hpp
 )
 set(I_SRCS
   ../src/c/core.cpp
   ../src/c/graphics.cpp
+  ../src/c/event.cpp
 )
 
 # libs

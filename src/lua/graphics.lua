@@ -2,6 +2,7 @@
 -- MIT license (see LICENSE, src/c/core.h or src/lua/core.lua)
 
 local core = require("shido.core")
+local event = require("shido.event")
 
 -- C API
 local ffi = require("ffi")
