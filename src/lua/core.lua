@@ -24,6 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ]]
 
+-- Framework's core module.
+
 -- C API
 local ffi = require("ffi")
 ffi.cdef[[

@@ -9,6 +9,7 @@ return function(...)
   require("shido.graphics")
   -- init modules
   shido.core.init()
+  shido.event.init()
   shido.graphics.init()
   -- run main
   local f, err = loadfile("main.lua")
