@@ -1,16 +1,17 @@
 // https://github.com/Archzenvald/Shido
 // MIT license (see LICENSE, src/c/core.h or src/lua/core.lua)
 
-#ifndef H_SHIDO_GRAPHICS
-#define H_SHIDO_GRAPHICS
+#ifndef H_SHIDO_WINDOW
+#define H_SHIDO_WINDOW
 
 #ifdef __cplusplus
 extern "C"{
 #endif
 
-#include "API.h"
+#include "../API.h"
 
-SHIDO_API bool shido_graphics_init();
+SHIDO_HANDLE_H(Window)
+SHIDO_API shido_WindowRef* shido_Window_new();
 
 #ifdef __cplusplus
 }

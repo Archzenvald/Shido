@@ -20,16 +20,20 @@ include_directories(${INC_DIRS})
 # sources
 set(H_SRCS
   ../src/c/API.h
+  ../src/c/API.hpp
   ../src/c/core.h
   ../src/c/core.hpp
   ../src/c/graphics.h
   ../src/c/graphics.hpp
+  ../src/c/graphics/Window.h
+  ../src/c/graphics/Window.hpp
   ../src/c/event.h
   ../src/c/event.hpp
 )
 set(I_SRCS
   ../src/c/core.cpp
   ../src/c/graphics.cpp
+  ../src/c/graphics/Window.cpp
   ../src/c/event.cpp
 )
 

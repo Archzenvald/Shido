@@ -1,8 +1,11 @@
+// https://github.com/Archzenvald/Shido
+// MIT license (see LICENSE, src/c/core.h or src/lua/core.lua)
+
 #include <iostream>
 #include <shido/core.h>
 #include <luajit-2.0/lua.hpp>
 
-// adapted error handling snippets from LuaJIT/luajit.c
+// Adapted error handling snippets from LuaJIT/luajit.c.
 
 static int traceback(lua_State *L)
 {
