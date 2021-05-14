@@ -7,7 +7,7 @@ bool shido_event_init()
 {
   bool ok = (SDL_InitSubSystem(SDL_INIT_EVENTS) == 0);
   if(!ok)
-    shido::error(std::string("SDL2 event init failed: ")+SDL_GetError());
+    shido::error(std::string("SDL event init failed: ")+SDL_GetError());
   return ok;
 }
 
@@ -15,7 +15,7 @@ bool shido_event_push(SDL_Event *event)
 {
   bool ok = (SDL_PushEvent(event) >= 0);
   if(!ok)
-    shido::error(std::string("SDL2 event push failed: ")+SDL_GetError());
+    shido::error(std::string("SDL event push failed: ")+SDL_GetError());
   return ok;
 }
 

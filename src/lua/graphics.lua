@@ -2,6 +2,7 @@
 -- MIT license (see LICENSE, src/c/core.h or src/lua/core.lua)
 
 -- Framework's graphics module.
+local API = require("shido.API")
 local core = require("shido.core")
 local event = require("shido.event")
 
@@ -14,9 +15,17 @@ local L = ffi.load("shido")
 -- init module
 local graphics = {}
 shido.graphics = graphics
+-- load handle types
+require("shido.graphics.Window")
 
 function graphics.init()
   if not L.shido_graphics_init() then core.error() end
+end
+
+function graphics.newWindow(title, w, h)
+  local ref = L.shido_Window_new(title, w, h)
+  if ref == nil then core.error() end
+  return API.claimFreeRef(ref)
 end
 
 -- Default app loop.

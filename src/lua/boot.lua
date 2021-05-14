@@ -12,6 +12,8 @@ return function(...)
   shido.core.init()
   shido.event.init()
   shido.graphics.init()
+  -- init basic resources
+  shido.graphics.window = shido.graphics.newWindow("shido", 800, 600)
   -- run main
   local f, err = loadfile("main.lua")
   if not f then error(err) end
