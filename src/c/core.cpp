@@ -3,11 +3,17 @@
 
 #include "core.hpp"
 
+namespace shido{
+
+thread_local std::string _error;
+void error(const std::string& err){ _error = err; }
+const std::string& getError(){ return _error; }
+
 Core::Core()
 {
-  status = SDL_Init(0);
-  if(status != 0)
-    std::cerr << "[shido] SDL2 core init failed: " << SDL_GetError() << std::endl;
+  ok = (SDL_Init(0) == 0);
+  if(!ok)
+    shido::error(std::string("SDL2 core init failed: ")+SDL_GetError());
 }
 
 Core::~Core()
@@ -20,6 +26,11 @@ Core& Core::get()
   static Core core;
   return core;
 }
+
+} // namespace shido
+
+void shido_core_error(const char* err){ shido::error(err); }
+const char* shido_core_getError(){ return shido::getError().c_str(); }
 
 const char* shido_core_getWorkingDirectory()
 {
@@ -35,11 +46,10 @@ const char* shido_core_getExecutableDirectory()
 
 bool shido_core_init()
 {
-  return Core::get().status;
+  return shido::Core::get().ok;
 }
 
 // Time.
-
 void shido_core_sleep(double time)
 {
   SDL_Delay((unsigned int)(time*1000));

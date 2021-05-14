@@ -6,6 +6,7 @@
 return function(...)
   -- load modules
   require("shido.core")
+  require("shido.event")
   require("shido.graphics")
   -- init modules
   shido.core.init()

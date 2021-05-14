@@ -15,7 +15,9 @@ local L = ffi.load("shido")
 local graphics = {}
 shido.graphics = graphics
 
-function graphics.init() return L.shido_graphics_init() end
+function graphics.init()
+  if not L.shido_graphics_init() then core.error() end
+end
 
 -- Default app loop.
 function shido.run()

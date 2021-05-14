@@ -33,6 +33,12 @@ extern "C"{
 
 #include "API.h"
 
+// Error handling.
+// Set C API error.
+SHIDO_API void shido_core_error(const char* err);
+// Get last C API error.
+SHIDO_API const char* shido_core_getError();
+
 SHIDO_API const char* shido_core_getWorkingDirectory();
 SHIDO_API const char* shido_core_getExecutableDirectory();
 SHIDO_API bool shido_core_init();

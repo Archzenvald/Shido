@@ -4,8 +4,8 @@
 #ifndef HPP_SHIDO_EVENT
 #define HPP_SHIDO_EVENT
 
+#include "core.hpp"
 #include "event.h"
-#include <iostream>
 #include <SDL2/SDL.h>
 
 #endif

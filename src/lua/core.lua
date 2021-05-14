@@ -29,6 +29,7 @@ SOFTWARE.
 -- C API
 local ffi = require("ffi")
 ffi.cdef[[
+const char* shido_core_getError();
 const char* shido_core_getWorkingDirectory();
 const char* shido_core_getExecutableDirectory();
 bool shido_core_init();
@@ -41,13 +42,21 @@ shido = {} -- shido first init
 local core = {}
 shido.core = core
 
+-- Get last shido C API error.
+function core.getError()
+  return ffi.string(L.shido_core_getError())
+end
+-- Throw Lua error from the last shido C API error.
+function core.error() error(core.getError()) end
 function core.getWorkingDirectory()
   return ffi.string(L.shido_core_getWorkingDirectory())
 end
 function core.getExecutableDirectory()
   return ffi.string(L.shido_core_getExecutableDirectory())
 end
-function core.init() return L.shido_core_init() end
+function core.init()
+  if not L.shido_core_init() then core.error() end
+end
 function core.sleep(time) L.shido_core_sleep(time) end
 function core.getTime() return L.shido_core_getTime() end
 

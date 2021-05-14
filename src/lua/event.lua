@@ -19,8 +19,12 @@ local L = ffi.load("shido")
 local event = {}
 shido.event = event
 
-function event.init() return L.shido_event_init() end
-function event.push(e) return L.shido_event_push(e) end
+function event.init()
+  if not L.shido_event_init() then core.error() end
+end
+function event.push(e)
+  if not L.shido_event_push(e) then core.error() end
+end
 function event.poll(e) return L.shido_event_poll(e) end
 function event.cleanup(e) L.shido_event_cleanup(e) end
 
