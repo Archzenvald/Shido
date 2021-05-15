@@ -39,7 +39,6 @@ function shido.run()
   -- loop
   local running = true
   while running do
-    print(shido.core.getTime())
     while shido.event.poll(evt) do
       if evt[0].type == L.SDL_QUIT then
         running = not not dispatch(shido.event.process(evt[0]))
