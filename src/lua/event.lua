@@ -42,46 +42,59 @@ processors[L.SDL_QUIT] = function(e) return "quit" end
 
 -- Window events.
 -- map of window event type => function
-local we_processors = {}
-processors[L.SDL_WINDOWEVENT] = function(e)
-  local p = we_processors[e.window.event]
-  if p then return p(e) end
+do
+  local subprocs = {}
+  processors[L.SDL_WINDOWEVENT] = function(e)
+    local p = subprocs[e.window.event]
+    if p then return p(e) end
+  end
+  subprocs[L.SDL_WINDOWEVENT_SHOWN] = function(e)
+    return "windowVisible", true, e.window.windowID
+  end
+  subprocs[L.SDL_WINDOWEVENT_HIDDEN] = function(e)
+    return "windowVisible", false, e.window.windowID
+  end
+  subprocs[L.SDL_WINDOWEVENT_MOVED] = function(e)
+    return "windowMoved", e.window.data1, e.window.data2, e.window.windowID
+  end
+  subprocs[L.SDL_WINDOWEVENT_RESIZED] = function(e)
+    return "windowResized", e.window.data1, e.window.data2, e.window.windowID
+  end
+  subprocs[L.SDL_WINDOWEVENT_MAXIMIZED] = function(e)
+    return "windowMaximized", e.window.windowID
+  end
+  subprocs[L.SDL_WINDOWEVENT_MINIMIZED] = function(e)
+    return "windowMinimized", e.window.windowID
+  end
+  subprocs[L.SDL_WINDOWEVENT_RESTORED] = function(e)
+    return "windowRestored", e.window.windowID
+  end
+  subprocs[L.SDL_WINDOWEVENT_ENTER] = function(e)
+    return "windowMouseFocus", true, e.window.windowID
+  end
+  subprocs[L.SDL_WINDOWEVENT_LEAVE] = function(e)
+    return "windowMouseFocus", false, e.window.windowID
+  end
+  subprocs[L.SDL_WINDOWEVENT_FOCUS_GAINED] = function(e)
+    return "windowFocus", true, e.window.windowID
+  end
+  subprocs[L.SDL_WINDOWEVENT_FOCUS_LOST] = function(e)
+    return "windowFocus", false, e.window.windowID
+  end
+  subprocs[L.SDL_WINDOWEVENT_CLOSE] = function(e)
+    return "windowClosed", e.window.windowID
+  end
 end
-we_processors[L.SDL_WINDOWEVENT_SHOWN] = function(e)
-  return "windowVisible", true, e.window.windowID
+
+-- Keyboard events.
+local function p_keyboard(e)
+  local name = (e.key.state == 1 and "keyPressed" or "keyReleased")
+  local is_repeat = (e.key["repeat"] ~= 0)
+  local keycode = SDL.keycode_map[e.key.keysym.sym]
+  local scancode = SDL.scancode_map[tonumber(e.key.keysym.scancode)]
+  return name, keycode, scancode, is_repeat, e.key.windowID
 end
-we_processors[L.SDL_WINDOWEVENT_HIDDEN] = function(e)
-  return "windowVisible", false, e.window.windowID
-end
-we_processors[L.SDL_WINDOWEVENT_MOVED] = function(e)
-  return "windowMoved", e.window.data1, e.window.data2, e.window.windowID
-end
-we_processors[L.SDL_WINDOWEVENT_RESIZED] = function(e)
-  return "windowResized", e.window.data1, e.window.data2, e.window.windowID
-end
-we_processors[L.SDL_WINDOWEVENT_MAXIMIZED] = function(e)
-  return "windowMaximized", e.window.windowID
-end
-we_processors[L.SDL_WINDOWEVENT_MINIMIZED] = function(e)
-  return "windowMinimized", e.window.windowID
-end
-we_processors[L.SDL_WINDOWEVENT_RESTORED] = function(e)
-  return "windowRestored", e.window.windowID
-end
-we_processors[L.SDL_WINDOWEVENT_ENTER] = function(e)
-  return "windowMouseFocus", true, e.window.windowID
-end
-we_processors[L.SDL_WINDOWEVENT_LEAVE] = function(e)
-  return "windowMouseFocus", false, e.window.windowID
-end
-we_processors[L.SDL_WINDOWEVENT_FOCUS_GAINED] = function(e)
-  return "windowFocus", true, e.window.windowID
-end
-we_processors[L.SDL_WINDOWEVENT_FOCUS_LOST] = function(e)
-  return "windowFocus", false, e.window.windowID
-end
-we_processors[L.SDL_WINDOWEVENT_CLOSE] = function(e)
-  return "windowClosed", e.window.windowID
-end
+processors[L.SDL_KEYDOWN] = p_keyboard
+processors[L.SDL_KEYUP] = p_keyboard
 
 return event
