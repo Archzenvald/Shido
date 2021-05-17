@@ -29,12 +29,15 @@ set(H_SRCS
   ../src/c/graphics/Window.hpp
   ../src/c/event.h
   ../src/c/event.hpp
+  ../src/c/input.h
+  ../src/c/input.hpp
 )
 set(I_SRCS
   ../src/c/core.cpp
   ../src/c/graphics.cpp
   ../src/c/graphics/Window.cpp
   ../src/c/event.cpp
+  ../src/c/input.cpp
 )
 
 # libs

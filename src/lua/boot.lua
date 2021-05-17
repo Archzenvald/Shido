@@ -8,10 +8,12 @@ return function(...)
   require("shido.core")
   require("shido.event")
   require("shido.graphics")
+  require("shido.input")
   -- init modules
   shido.core.init()
   shido.event.init()
   shido.graphics.init()
+  shido.input.init()
   -- init basic resources
   shido.graphics.window = shido.graphics.newWindow("shido", 800, 600)
   -- run main
