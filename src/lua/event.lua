@@ -29,6 +29,7 @@ function event.poll(e) return L.shido_event_poll(e) end
 function event.cleanup(e) L.shido_event_cleanup(e) end
 
 -- SDL_Event processors, map of event type => function.
+-- function(e): should return (name, ...) or nil
 local processors = {}
 -- Process SDL_Event data and cleanup the structure.
 -- e: SDL_Event&
@@ -39,6 +40,32 @@ function event.process(e)
 end
 
 processors[L.SDL_QUIT] = function(e) return "quit" end
+
+-- Drop events.
+do
+  local drop_files = {} -- map of window id => list of files
+  processors[L.SDL_DROPBEGIN] = function(e) drop_files[e.drop.windowID] = {} end
+  processors[L.SDL_DROPCOMPLETE] = function(e)
+    local wid = e.drop.windowID
+    local files = drop_files[wid]
+    drop_files[wid] = nil
+    return "filesDropped", files, wid
+  end
+  processors[L.SDL_DROPFILE] = function(e)
+    local file = ffi.string(e.drop.file)
+    local wid = e.drop.windowID
+    L.shido_event_cleanup(e)
+    local files = drop_files[wid]
+    if files then table.insert(files, file) -- add to drop's batch
+    else return "filesDropped", {file}, wid end -- single file
+  end
+  processors[L.SDL_DROPTEXT] = function(e)
+    local text = ffi.string(e.drop.file)
+    local wid = e.drop.windowID
+    L.shido_event_cleanup(e)
+    return "textDropped", text, wid
+  end
+end
 
 -- Window events.
 -- map of window event type => function
@@ -96,5 +123,26 @@ local function p_keyboard(e)
 end
 processors[L.SDL_KEYDOWN] = p_keyboard
 processors[L.SDL_KEYUP] = p_keyboard
+processors[L.SDL_TEXTEDITING] = function(e)
+  return "textEditing", ffi.string(e.edit.text), e.edit.start, e.edit.length, e.edit.windowID
+end
+processors[L.SDL_TEXTINPUT] = function(e)
+  return "textInput", ffi.string(e.text.text), e.text.windowID
+end
+
+-- Mouse events.
+processors[L.SDL_MOUSEMOTION] = function(e)
+  return "mouseMoved", e.motion.x, e.motion.y, e.motion.xrel, e.motion.yrel, e.motion.windowID
+end
+local function p_mouse_button(e)
+  local name = (e.button.state == 1 and "mousePressed" or "mouseReleased")
+  local button = SDL.mouse_button_map[e.button.button]
+  return name, e.button.x, e.button.y, button, e.button.clicks, e.button.windowID
+end
+processors[L.SDL_MOUSEBUTTONDOWN] = p_mouse_button
+processors[L.SDL_MOUSEBUTTONUP] = p_mouse_button
+processors[L.SDL_MOUSEWHEEL] = function(e)
+  return "mouseWheel", e.wheel.x, e.wheel.y, e.wheel.windowID
+end
 
 return event

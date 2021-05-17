@@ -1261,4 +1261,19 @@ do
   reg("_", nil, L.SDLK_UNDERSCORE)
 end
 
+-- Mouse buttons.
+SDL.mouse_button_map = {}
+do
+  -- id: string
+  local function reg(id, i)
+    SDL.mouse_button_map[id] = i
+    SDL.mouse_button_map[i] = id
+  end
+  reg("left", 1)
+  reg("middle", 2)
+  reg("right", 3)
+  reg("x1", 4)
+  reg("x2", 5)
+end
+
 return SDL
