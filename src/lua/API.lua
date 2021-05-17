@@ -51,9 +51,18 @@ function API.defineHandle(name)
   ffi.metatype("shido_"..name.."Ref", ref_mt)
 end
 
+-- Free handle, further use is undefined behavior.
+-- Low-level method to free resources when the GC is not good enough.
+function free_handle(self)
+  handles[ptr_key(self.obj)] = nil
+  self.ref:free()
+  self.ref, self.obj = nil, nil
+end
+
 -- index: index table for the metatype
 function API.implementHandle(name, index)
-  ffi.metatype("shido_"..name, {__index = index})
+  index.__free = free_handle
+  ffi.metatype("shido_"..name.."Handle", {__index = index})
 end
 
 -- Claim a free (memory not already managed) reference.
