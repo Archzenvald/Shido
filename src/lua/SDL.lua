@@ -1261,6 +1261,29 @@ do
   reg("_", nil, L.SDLK_UNDERSCORE)
 end
 
+SDL.keymod_map = {}
+do
+  local function reg(id, keymod)
+    SDL.keymod_map[id] = keymod
+    SDL.keymod_map[keymod] = id
+  end
+  reg("lshift", L.KMOD_LSHIFT)
+  reg("rshift", L.KMOD_RSHIFT)
+  reg("lctrl", L.KMOD_LCTRL)
+  reg("rctrl", L.KMOD_RCTRL)
+  reg("lalt", L.KMOD_LALT)
+  reg("ralt", L.KMOD_RALT)
+  reg("lgui", L.KMOD_LGUI)
+  reg("rgui", L.KMOD_RGUI)
+  reg("num", L.KMOD_NUM)
+  reg("caps", L.KMOD_CAPS)
+  reg("mode", L.KMOD_MODE)
+  reg("ctrl", L.KMOD_CTRL)
+  reg("shift", L.KMOD_SHIFT)
+  reg("alt", L.KMOD_ALT)
+  reg("gui", L.KMOD_GUI)
+end
+
 -- Mouse buttons.
 SDL.mouse_button_map = {}
 do
