@@ -9,12 +9,14 @@ endif::[]
 
 *Shīdo* (*シード*) is a 3D game framework which aims to be simple and powerful. It shares similarities with the https://love2d.org/[LÖVE] framework.
 
+One key principle of the framework is to expose and work at different levels of abstraction.
+
 .The framework is made up of:
 - A *C* API, the *shido* shared/dynamic library.
 - A Lua(JIT) API, built on the *C* API with the FFI.
 - A runtime environment to launch an app.
 
-NOTE: The *C* library, although independently usable, is not designed to be a standalone API for the framework. The Lua API is at the highest level and calls the C API, allowing users to access multiple levels of abstraction when necessary. Thus, some parts of the framework may be exclusively written in Lua.
+NOTE: The *C* library, although independently usable, is not designed to be a standalone API for the framework. The Lua API is at the highest level and calls the C API, thus some parts of the framework may be exclusively written in Lua.
 
 .The framework is built on some major dependencies:
 - The https://www.libsdl.org/index.php[SDL2] library.
