@@ -10,3 +10,35 @@ bool shido_graphics_init()
     shido::error(std::string("SDL graphics init failed: ")+SDL_GetError());
   return ok;
 }
+
+int shido_graphics_getDisplayCount(){ return SDL_GetNumVideoDisplays(); }
+
+void shido_graphics_getDisplay(int index, shido_Display_t *out)
+{
+  SDL_Rect rect;
+  *out = shido_Display_t{}; // init
+  // name
+  out->name = SDL_GetDisplayName(index);
+  if(out->name == nullptr)
+    shido::warning(std::string("SDL: ")+SDL_GetError());
+  // bounds
+  if(SDL_GetDisplayBounds(index, &rect) == 0){
+    out->x = rect.x;
+    out->y = rect.y;
+    out->w = rect.w;
+    out->h = rect.h;
+  }
+  else
+    shido::warning(std::string("SDL: ")+SDL_GetError());
+  // usable bounds
+  if(SDL_GetDisplayUsableBounds(index, &rect) == 0){
+    out->ux = rect.x;
+    out->uy = rect.y;
+    out->uw = rect.w;
+    out->uh = rect.h;
+  }
+  else
+    shido::warning(std::string("SDL: ")+SDL_GetError());
+  // dpi
+  out->has_dpi = (SDL_GetDisplayDPI(index, &out->ddpi, &out->hdpi, &out->vdpi) == 0);
+}

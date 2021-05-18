@@ -7,5 +7,6 @@
 #include "core.hpp"
 #include "graphics.h"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_video.h>
 
 #endif

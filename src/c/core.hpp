@@ -16,6 +16,7 @@
 #define HPP_SHIDO_CORE
 
 #include "core.h"
+#include <iostream>
 #include <utils/Path.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_timer.h>
@@ -33,6 +34,7 @@ namespace shido{
 // Error handling.
 void error(const std::string& err);
 const std::string& getError();
+void warning(const std::string& warn);
 
 // Core state.
 struct Core{

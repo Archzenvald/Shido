@@ -978,6 +978,15 @@ typedef union SDL_Event
   SDL_DropEvent drop;
   Uint8 padding[56];
 } SDL_Event;
+
+typedef struct
+{
+    Uint32 format;
+    int w;
+    int h;
+    int refresh_rate;
+    void *driverdata;
+} SDL_DisplayMode;
 ]]
 
 local SDL = {}

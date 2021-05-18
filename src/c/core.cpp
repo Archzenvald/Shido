@@ -9,6 +9,11 @@ thread_local std::string _error;
 void error(const std::string& err){ _error = err; }
 const std::string& getError(){ return _error; }
 
+void warning(const std::string& warn)
+{
+  std::cerr << "[shido] " << warn << std::endl;
+}
+
 Core::Core()
 {
   ok = (SDL_Init(0) == 0);

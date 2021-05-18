@@ -9,7 +9,17 @@ local event = require("shido.event")
 -- C API
 local ffi = require("ffi")
 ffi.cdef[[
+typedef struct shido_Display_t{
+  const char *name;
+  int x, y, w, h;
+  int ux, uy, uw, uh;
+  bool has_dpi;
+  float ddpi, hdpi, vdpi;
+} shido_Display_t;
+
 bool shido_graphics_init();
+int shido_graphics_getDisplayCount();
+void shido_graphics_getDisplay(int index, shido_Display_t *out);
 ]]
 local L = ffi.load("shido")
 -- init module
@@ -20,6 +30,47 @@ require("shido.graphics.Window")
 
 function graphics.init()
   if not L.shido_graphics_init() then core.error() end
+end
+
+-- Get displays infos.
+-- return list of displays {}
+--- name: can be nil
+--- bounds: {.x, .y, .w, .h}
+--- usable_boundes: {.x, .y, .w, .h}
+--- dpi: can be nil, {}
+---- d: diagonal DPI
+---- h: horizontal DPI
+---- v: vertical DPI
+function graphics.getDisplays()
+  local dispdata = ffi.new("shido_Display_t[1]")
+  local count = L.shido_graphics_getDisplayCount();
+  local displays = {}
+  for i=0,count-1 do
+    L.shido_graphics_getDisplay(i, dispdata)
+    local display = {}
+    if dispdata[0].name ~= nil then display.name = ffi.string(dispdata[0].name) end
+    display.bounds = {
+      x = dispdata[0].x,
+      y = dispdata[0].y,
+      w = dispdata[0].w,
+      h = dispdata[0].h
+    }
+    display.usable_bounds = {
+      ux = dispdata[0].ux,
+      uy = dispdata[0].uy,
+      uw = dispdata[0].uw,
+      uh = dispdata[0].uh
+    }
+    if dispdata[0].has_dpi then
+      display.dpi = {
+        d = dispdata[0].ddpi,
+        h = dispdata[0].hdpi,
+        v = dispdata[0].vdpi
+      }
+    end
+    table.insert(displays, display)
+  end
+  return displays
 end
 
 function graphics.newWindow(title, w, h)

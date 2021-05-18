@@ -9,6 +9,7 @@ return function(...)
   require("shido.event")
   require("shido.graphics")
   require("shido.input")
+  require("shido.utils")
   -- init modules
   shido.core.init()
   shido.event.init()
