@@ -6,8 +6,6 @@ ifdef::env-github[]
 :caution-caption: :fire:
 :warning-caption: :warning:
 endif::[]
-:toc: left
-:toclevels: 5
 
 *Shīdo* (*シード*) is a 3D game framework which aims to be simple and powerful. It shares similarities with the https://love2d.org/[LÖVE] framework.
 
@@ -25,6 +23,17 @@ NOTE: The *C* library, although independently usable, is not designed to be a st
 - The http://luajit.org/luajit.html[LuaJIT] (2.1) VM.
 
 .Available runtime dynamic libraries:
-- `lua51`: LuaJIT's dynamic library.
+- *shido*
+- LuaJIT's dynamic library
 
 WARNING: Other libraries are either not available or not guaranteed to be available.
+
+== Supported platforms
+
+The main targets are desktop platforms: *Windows* and *Linux*.
+
+Ultimately, *Android* could be supported for mobile platforms.
+
+*iOS* and *macOS* might be supported, but are not planned.
+
+*Web* will probably never be supported because of the low-level requirements of the framework.

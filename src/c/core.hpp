@@ -1,6 +1,17 @@
 // https://github.com/Archzenvald/Shido
 // MIT license (see LICENSE, src/c/core.h or src/lua/core.lua)
 
+/*
+ * Each component of the API, like a module or handle, can be made up of multiple files:
+ * - name.h: The C API.
+ * - name.hpp: The implementation header.
+ * - name.cpp: The implementation.
+ * - name.lua: The Lua API/implementation.
+ *
+ * For the C++ implementation, the shido:: namespace is used to avoid
+ * collisions; module/handle namespaces may be overkill.
+ */
+
 #ifndef HPP_SHIDO_CORE
 #define HPP_SHIDO_CORE
 
