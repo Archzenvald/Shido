@@ -21,6 +21,7 @@ typedef struct shido_Display_t{
 SHIDO_API bool shido_graphics_init();
 SHIDO_API int shido_graphics_getDisplayCount();
 // Get display info.
+// index: 0-based
 SHIDO_API void shido_graphics_getDisplay(int index, shido_Display_t *out);
 
 #ifdef __cplusplus

@@ -15,7 +15,7 @@ shido_WindowRef* shido_Window_new(const char *title, int w, int h)
   SDL_Window *handle = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED,
     SDL_WINDOWPOS_CENTERED, w, h, SDL_WINDOW_RESIZABLE);
   if(!handle){
-    shido::error(std::string("SDL window creation failed: ")+SDL_GetError());
+    shido::error(std::string("SDL: ")+SDL_GetError());
     return nullptr;
   }
   return new shido_WindowRef{std::make_shared<shido_Window>(handle)};

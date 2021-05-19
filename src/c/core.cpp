@@ -18,7 +18,7 @@ Core::Core()
 {
   ok = (SDL_Init(0) == 0);
   if(!ok)
-    shido::error(std::string("SDL core init failed: ")+SDL_GetError());
+    shido::error(std::string("SDL: ")+SDL_GetError());
 }
 
 Core::~Core()

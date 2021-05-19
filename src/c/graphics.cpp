@@ -7,7 +7,7 @@ bool shido_graphics_init()
 {
   bool ok = (SDL_InitSubSystem(SDL_INIT_VIDEO) == 0);
   if(!ok)
-    shido::error(std::string("SDL graphics init failed: ")+SDL_GetError());
+    shido::error(std::string("SDL: ")+SDL_GetError());
   return ok;
 }
 

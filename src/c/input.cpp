@@ -7,7 +7,7 @@ bool shido_input_init()
 {
   bool ok = (SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER) == 0);
   if(!ok)
-    shido::error(std::string("SDL input init failed: ")+SDL_GetError());
+    shido::error(std::string("SDL: ")+SDL_GetError());
   return ok;
 }
 
