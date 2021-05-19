@@ -12,7 +12,11 @@ extern "C"{
 
 #include "API.h"
 
+// Init.
+// return false on failure (error)
 SHIDO_API bool shido_event_init();
+// Push event.
+// return false on failure (error)
 SHIDO_API bool shido_event_push(SDL_Event *event);
 SHIDO_API bool shido_event_poll(SDL_Event *event);
 SHIDO_API void shido_event_cleanup(SDL_Event *event);

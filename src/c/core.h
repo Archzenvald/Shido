@@ -58,6 +58,8 @@ SHIDO_API const char* shido_core_getError();
 
 SHIDO_API const char* shido_core_getWorkingDirectory();
 SHIDO_API const char* shido_core_getExecutableDirectory();
+// Init.
+// return false on failure (error)
 SHIDO_API bool shido_core_init();
 SHIDO_API void shido_core_sleep(double time);
 SHIDO_API double shido_core_getTime();

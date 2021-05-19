@@ -42,3 +42,18 @@ void shido_graphics_getDisplay(int index, shido_Display_t *out)
   // dpi
   out->has_dpi = (SDL_GetDisplayDPI(index, &out->ddpi, &out->hdpi, &out->vdpi) == 0);
 }
+
+int shido_graphics_getDisplayModeCount(int index)
+{ return SDL_GetNumDisplayModes(index); }
+
+bool shido_graphics_getDisplayMode(int index, int mode_index, SDL_DisplayMode *out)
+{
+  bool ok;
+  if(mode_index < 0)
+    ok = (SDL_GetDesktopDisplayMode(index, out) == 0);
+  else
+    ok = (SDL_GetDisplayMode(index, mode_index, out) == 0);
+  if(!ok)
+    shido::warning(std::string("SDL: ")+SDL_GetError());
+  return ok;
+}

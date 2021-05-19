@@ -11,6 +11,8 @@ extern "C"{
 #include "API.h"
 #include <SDL2/SDL_keyboard.h>
 
+// Init.
+// return false on failure (error)
 SHIDO_API bool shido_input_init();
 SHIDO_API const Uint8* shido_input_getKeyboardState();
 SHIDO_API SDL_Keymod shido_input_getKeyboardMod();
