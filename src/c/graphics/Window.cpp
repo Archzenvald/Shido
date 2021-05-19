@@ -20,3 +20,10 @@ shido_WindowRef* shido_Window_new(const char *title, int w, int h)
   }
   return new shido_WindowRef{std::make_shared<shido_Window>(handle)};
 }
+
+int shido_Window_getDisplay(shido_Window *self)
+{
+  int index = SDL_GetWindowDisplayIndex(self->handle);
+  if(index < 0) shido::error(std::string("SDL: ")+SDL_GetError());
+  return index;
+}
