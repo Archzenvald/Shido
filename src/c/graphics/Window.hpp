@@ -15,6 +15,8 @@ struct shido_Window{
   SDL_Window *handle;
   shido_Window(SDL_Window *_handle): handle(_handle){}
   ~shido_Window();
+
+  static shido::Registry<SDL_Window*, shido_WindowRef>& getRegistry();
 };
 
 #endif

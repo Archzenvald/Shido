@@ -4,7 +4,6 @@
 -- Framework's graphics module.
 local API = require("shido.API")
 local core = require("shido.core")
-local event = require("shido.event")
 
 -- C API
 local ffi = require("ffi")
@@ -102,12 +101,6 @@ function graphics.getDisplayModes(index)
   -- desktop mode
   modes.desktop = getDisplayMode(index-1, -1)
   return modes
-end
-
-function graphics.newWindow(title, w, h)
-  local ref = L.shido_Window_new(title, w, h)
-  if ref == nil then core.error() end
-  return API.claimFreeRef(ref)
 end
 
 -- Default app loop.

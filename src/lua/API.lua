@@ -66,6 +66,7 @@ function API.implementHandle(name, index)
 end
 
 -- Claim a free (memory not already managed) reference.
+-- ref: valid reference
 function API.claimFreeRef(ref)
   local obj = ref:ptr()
   local key = ptr_key(obj)
@@ -84,6 +85,7 @@ function API.claimFreeRef(ref)
 end
 
 -- Claim an owned reference.
+-- ref: valid reference
 function API.claimOwnedRef(ref)
   local obj = ref:ptr()
   local key = ptr_key(obj)

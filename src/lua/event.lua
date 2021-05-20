@@ -5,6 +5,8 @@
 
 local core = require("shido.core")
 local SDL = require("shido.SDL")
+local graphics = require("shido.graphics")
+local getWindow = graphics.getWindow
 
 -- C API
 local ffi = require("ffi")
@@ -76,40 +78,40 @@ do
     if p then return p(e) end
   end
   subprocs[L.SDL_WINDOWEVENT_SHOWN] = function(e)
-    return "windowVisible", true, e.window.windowID
+    return "windowVisible", true, getWindow(e.window.windowID)
   end
   subprocs[L.SDL_WINDOWEVENT_HIDDEN] = function(e)
-    return "windowVisible", false, e.window.windowID
+    return "windowVisible", false, getWindow(e.window.windowID)
   end
   subprocs[L.SDL_WINDOWEVENT_MOVED] = function(e)
-    return "windowMoved", e.window.data1, e.window.data2, e.window.windowID
+    return "windowMoved", e.window.data1, e.window.data2, getWindow(e.window.windowID)
   end
   subprocs[L.SDL_WINDOWEVENT_RESIZED] = function(e)
-    return "windowResized", e.window.data1, e.window.data2, e.window.windowID
+    return "windowResized", e.window.data1, e.window.data2, getWindow(e.window.windowID)
   end
   subprocs[L.SDL_WINDOWEVENT_MAXIMIZED] = function(e)
-    return "windowMaximized", e.window.windowID
+    return "windowMaximized", getWindow(e.window.windowID)
   end
   subprocs[L.SDL_WINDOWEVENT_MINIMIZED] = function(e)
-    return "windowMinimized", e.window.windowID
+    return "windowMinimized", getWindow(e.window.windowID)
   end
   subprocs[L.SDL_WINDOWEVENT_RESTORED] = function(e)
-    return "windowRestored", e.window.windowID
+    return "windowRestored", getWindow(e.window.windowID)
   end
   subprocs[L.SDL_WINDOWEVENT_ENTER] = function(e)
-    return "windowMouseFocus", true, e.window.windowID
+    return "windowMouseFocus", true, getWindow(e.window.windowID)
   end
   subprocs[L.SDL_WINDOWEVENT_LEAVE] = function(e)
-    return "windowMouseFocus", false, e.window.windowID
+    return "windowMouseFocus", false, getWindow(e.window.windowID)
   end
   subprocs[L.SDL_WINDOWEVENT_FOCUS_GAINED] = function(e)
-    return "windowFocus", true, e.window.windowID
+    return "windowFocus", true, getWindow(e.window.windowID)
   end
   subprocs[L.SDL_WINDOWEVENT_FOCUS_LOST] = function(e)
-    return "windowFocus", false, e.window.windowID
+    return "windowFocus", false, getWindow(e.window.windowID)
   end
   subprocs[L.SDL_WINDOWEVENT_CLOSE] = function(e)
-    return "windowClosed", e.window.windowID
+    return "windowClosed", getWindow(e.window.windowID)
   end
 end
 
@@ -119,30 +121,30 @@ local function p_keyboard(e)
   local is_repeat = (e.key["repeat"] ~= 0)
   local keycode = SDL.keycode_map[e.key.keysym.sym]
   local scancode = SDL.scancode_map[tonumber(e.key.keysym.scancode)]
-  return name, keycode, scancode, is_repeat, e.key.windowID
+  return name, keycode, scancode, is_repeat, getWindow(e.key.windowID)
 end
 processors[L.SDL_KEYDOWN] = p_keyboard
 processors[L.SDL_KEYUP] = p_keyboard
 processors[L.SDL_TEXTEDITING] = function(e)
-  return "textEditing", ffi.string(e.edit.text), e.edit.start, e.edit.length, e.edit.windowID
+  return "textEditing", ffi.string(e.edit.text), e.edit.start, e.edit.length, getWindow(e.edit.windowID)
 end
 processors[L.SDL_TEXTINPUT] = function(e)
-  return "textInput", ffi.string(e.text.text), e.text.windowID
+  return "textInput", ffi.string(e.text.text), getWindow(e.text.windowID)
 end
 
 -- Mouse events.
 processors[L.SDL_MOUSEMOTION] = function(e)
-  return "mouseMoved", e.motion.x, e.motion.y, e.motion.xrel, e.motion.yrel, e.motion.windowID
+  return "mouseMoved", e.motion.x, e.motion.y, e.motion.xrel, e.motion.yrel, getWindow(e.motion.windowID)
 end
 local function p_mouse_button(e)
   local name = (e.button.state == 1 and "mousePressed" or "mouseReleased")
   local button = SDL.mouse_button_map[e.button.button]
-  return name, e.button.x, e.button.y, button, e.button.clicks, e.button.windowID
+  return name, e.button.x, e.button.y, button, e.button.clicks, getWindow(e.button.windowID)
 end
 processors[L.SDL_MOUSEBUTTONDOWN] = p_mouse_button
 processors[L.SDL_MOUSEBUTTONUP] = p_mouse_button
 processors[L.SDL_MOUSEWHEEL] = function(e)
-  return "mouseWheel", e.wheel.x, e.wheel.y, e.wheel.windowID
+  return "mouseWheel", e.wheel.x, e.wheel.y, getWindow(e.wheel.windowID)
 end
 
 return event

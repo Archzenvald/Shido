@@ -14,6 +14,9 @@ SHIDO_HANDLE_H(Window)
 // Create window.
 // return new reference or NULL on failure (see shido_core_getError())
 SHIDO_API shido_WindowRef* shido_Window_new(const char *title, int w, int h);
+// Get window from id.
+// return new reference or NULL
+SHIDO_API shido_WindowRef* shido_Window_get(uint32_t id);
 // Get window display.
 // return 0-based index or < 0 on failure (error)
 SHIDO_API int shido_Window_getDisplay(shido_Window *self);
