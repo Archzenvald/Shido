@@ -10,6 +10,7 @@ return function(...)
   require("shido.graphics")
   require("shido.input")
   require("shido.utils")
+  require("shido.app")
   -- init modules
   shido.core.init()
   shido.event.init()
