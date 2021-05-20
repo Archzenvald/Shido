@@ -4,6 +4,7 @@
 -- Framework's graphics module.
 local API = require("shido.API")
 local core = require("shido.core")
+local event = require("shido.event")
 
 -- C API
 local ffi = require("ffi")
@@ -125,4 +126,5 @@ function shido.run()
   end
 end
 
+require("shido.deferred").loaded("shido.graphics", graphics)
 return graphics

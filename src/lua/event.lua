@@ -5,8 +5,11 @@
 
 local core = require("shido.core")
 local SDL = require("shido.SDL")
-local graphics = require("shido.graphics")
-local getWindow = graphics.getWindow
+local deferred = require("shido.deferred")
+local getWindow
+deferred.postLoad("shido.graphics", function(graphics)
+  getWindow = graphics.getWindow
+end)
 
 -- C API
 local ffi = require("ffi")
