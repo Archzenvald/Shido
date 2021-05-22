@@ -36,3 +36,23 @@ void shido_input_setTextInputRect(int x, int y, int w, int h)
 
 SDL_Keymod shido_input_getKeyboardMod()
 { return SDL_GetModState(); }
+
+void shido_input_getMousePosition(int out[2])
+{ SDL_GetMouseState(out, out+1); }
+
+Uint32 shido_input_getMouseState()
+{ return SDL_GetMouseState(nullptr, nullptr); }
+
+void shido_input_warpMouse(int x, int y, shido_Window *window)
+{ SDL_WarpMouseInWindow(window ? window->handle : nullptr, x, y); }
+
+bool shido_input_setRelativeMouseMode(bool enable)
+{
+  bool ok = (SDL_SetRelativeMouseMode(enable ? SDL_TRUE : SDL_FALSE) == 0);
+  if(!ok)
+    shido::error(std::string("SDL: ")+SDL_GetError());
+  return ok;
+}
+
+bool shido_input_getRelativeMouseMode()
+{ return SDL_GetRelativeMouseMode(); }

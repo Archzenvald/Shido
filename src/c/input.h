@@ -9,6 +9,7 @@ extern "C"{
 #endif
 
 #include "API.h"
+#include "graphics/Window.h"
 #include <SDL2/SDL_keyboard.h>
 
 // Init.
@@ -23,6 +24,17 @@ SHIDO_API bool shido_input_isTextInputActive();
 SHIDO_API void shido_input_setTextInputRect(int x, int y, int w, int h);
 SHIDO_API void shido_input_startTextInput();
 SHIDO_API void shido_input_stopTextInput();
+
+SHIDO_API void shido_input_getMousePosition(int out[2]);
+SHIDO_API Uint32 shido_input_getMouseState();
+// Warp mouse into a window.
+// x,y: position
+// window: (optional) target window
+SHIDO_API void shido_input_warpMouse(int x, int y, shido_Window *window);
+// Enable/disable relative mouse mode.
+// return false on failure (error)
+SHIDO_API bool shido_input_setRelativeMouseMode(bool enable);
+SHIDO_API bool shido_input_getRelativeMouseMode();
 
 #ifdef __cplusplus
 }

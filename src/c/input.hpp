@@ -6,6 +6,7 @@
 
 #include "core.hpp"
 #include "input.h"
+#include "graphics/Window.hpp"
 #include <SDL2/SDL.h>
 
 #endif
