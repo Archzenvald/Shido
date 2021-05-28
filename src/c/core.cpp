@@ -36,6 +36,7 @@ Core& Core::get()
 
 void shido_core_error(const char* err){ shido::error(err); }
 const char* shido_core_getError(){ return shido::getError().c_str(); }
+void shido_core_warning(const char* warn){ shido::warning(warn); }
 
 const char* shido_core_getWorkingDirectory()
 {

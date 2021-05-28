@@ -30,6 +30,7 @@ SOFTWARE.
 local ffi = require("ffi")
 ffi.cdef[[
 const char* shido_core_getError();
+void shido_core_warning(const char* warn);
 const char* shido_core_getWorkingDirectory();
 const char* shido_core_getExecutableDirectory();
 bool shido_core_init();
@@ -42,12 +43,19 @@ shido = {} -- shido first init
 local core = {}
 shido.core = core
 
+-- Error/warning handling.
+--- Fatal error: the API cannot recover from the error, the user must handle it (throw).
+--- Soft error: the error is non-fatal and signaled to the user (e.g. (ok, err) return values),  but can be ignored.
+--- Warning: message not signaled through the API; printed to stderr.
+
 -- Get last shido C API error.
 function core.getError()
   return ffi.string(L.shido_core_getError())
 end
 -- Throw Lua error from the last shido C API error.
 function core.error() error(core.getError()) end
+function core.warning(warn) L.shido_core_warning(warn) end
+
 function core.getWorkingDirectory()
   return ffi.string(L.shido_core_getWorkingDirectory())
 end

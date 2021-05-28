@@ -55,6 +55,7 @@ extern "C"{
 SHIDO_API void shido_core_error(const char* err);
 // Get last C API error.
 SHIDO_API const char* shido_core_getError();
+SHIDO_API void shido_core_warning(const char* warn);
 
 SHIDO_API const char* shido_core_getWorkingDirectory();
 SHIDO_API const char* shido_core_getExecutableDirectory();
