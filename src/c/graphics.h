@@ -9,6 +9,7 @@ extern "C"{
 #endif
 
 #include "API.h"
+#include <SDL2/SDL_video.h>
 
 typedef struct shido_Display_t{
   const char *name; // can be NULL

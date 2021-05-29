@@ -4,8 +4,8 @@
 #ifndef HPP_SHIDO_INPUT
 #define HPP_SHIDO_INPUT
 
-#include "core.hpp"
 #include "input.h"
+#include "core.hpp"
 #include "graphics/Window.hpp"
 #include <SDL2/SDL.h>
 

@@ -29,6 +29,7 @@ local graphics = {}
 shido.graphics = graphics
 -- load handle types
 require("shido.graphics.Window")
+require("shido.graphics.Renderer")
 
 function graphics.init()
   if not L.shido_graphics_init() then core.error() end

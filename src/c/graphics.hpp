@@ -4,8 +4,8 @@
 #ifndef HPP_SHIDO_GRAPHICS
 #define HPP_SHIDO_GRAPHICS
 
-#include "core.hpp"
 #include "graphics.h"
+#include "core.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_video.h>
 #include <filament/Engine.h>

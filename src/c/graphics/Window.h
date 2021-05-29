@@ -9,6 +9,7 @@ extern "C"{
 #endif
 
 #include "../API.h"
+#include <SDL2/SDL_video.h>
 
 SHIDO_HANDLE_H(Window)
 SHIDO_HANDLE_H(SwapChain)

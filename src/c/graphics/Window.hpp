@@ -4,10 +4,10 @@
 #ifndef HPP_SHIDO_WINDOW
 #define HPP_SHIDO_WINDOW
 
+#include "Window.h"
 #include "../API.hpp"
 #include "../core.hpp"
 #include "../graphics.hpp"
-#include "Window.h"
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL_syswm.h>
 #include <filament/SwapChain.h>

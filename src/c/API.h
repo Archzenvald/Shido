@@ -6,6 +6,7 @@
 #define H_SHIDO_API
 
 #include <stdbool.h>
+#include <stdint.h>
 
 // Export.
 #ifdef _WIN32
