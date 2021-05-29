@@ -8,5 +8,21 @@
 #include "graphics.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_video.h>
+#include <filament/Engine.h>
+
+namespace shido{
+
+// Module state.
+struct Graphics{
+  Graphics();
+  ~Graphics();
+  static Graphics& get();
+  //
+  bool ok;
+  std::string err;
+  filament::Engine *engine;
+};
+
+}
 
 #endif

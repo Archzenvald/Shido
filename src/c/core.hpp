@@ -36,13 +36,14 @@ void error(const std::string& err);
 const std::string& getError();
 void warning(const std::string& warn);
 
-// Core state.
+// Module state.
 struct Core{
   Core();
   ~Core();
   static Core& get();
   //
   bool ok;
+  std::string err;
 };
 
 }

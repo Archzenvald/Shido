@@ -10,25 +10,29 @@ local L = ffi.load("shido")
 local app = {}
 shido.app = app
 
--- Default app loop.
-function shido.run()
-  local evt = ffi.new("SDL_Event[1]")
-  local function dispatch(name, ...)
-    print("event", name, ...)
-    -- dispatch to shido callbacks
-    if name and shido[name] then return shido[name](...) end
-  end
-  -- loop
-  local running = true
-  while running do
-    while shido.event.poll(evt) do
-      if evt[0].type == L.SDL_QUIT then
-        running = not not dispatch(shido.event.process(evt[0]))
-      else
-        dispatch(shido.event.process(evt[0]))
-      end
+function app.init()
+  shido.app.window = shido.graphics.newWindow("shido", 800, 600)
+  shido.app.swapchain = shido.graphics.newSwapChain(shido.app.window)
+  -- Define default app loop.
+  function shido.run()
+    local evt = ffi.new("SDL_Event[1]")
+    local function dispatch(name, ...)
+      print("event", name, ...)
+      -- dispatch to shido callbacks
+      if name and shido[name] then return shido[name](...) end
     end
-    shido.core.sleep(0.016)
+    -- loop
+    local running = true
+    while running do
+      while shido.event.poll(evt) do
+        if evt[0].type == L.SDL_QUIT then
+          running = not not dispatch(shido.event.process(evt[0]))
+        else
+          dispatch(shido.event.process(evt[0]))
+        end
+      end
+      shido.core.sleep(0.016)
+    end
   end
 end
 

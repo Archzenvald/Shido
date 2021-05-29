@@ -4,6 +4,9 @@
 #include "Window.hpp"
 
 SHIDO_HANDLE_CPP(Window)
+SHIDO_HANDLE_CPP(SwapChain)
+
+// Window
 
 shido::Registry<SDL_Window*, shido_WindowRef>& shido_Window::getRegistry()
 {
@@ -130,3 +133,44 @@ bool shido_Window_hasFocus(shido_Window *self)
 { return SDL_GetWindowFlags(self->handle) & SDL_WINDOW_INPUT_FOCUS; }
 bool shido_Window_hasMouseFocus(shido_Window *self)
 { return SDL_GetWindowFlags(self->handle) & SDL_WINDOW_MOUSE_FOCUS; }
+
+// SwapChain
+
+shido_SwapChain::~shido_SwapChain()
+{
+  shido::Graphics::get().engine->destroy(handle);
+}
+
+shido_SwapChainRef* shido_SwapChain_new(shido_WindowRef *window)
+{
+  // get native window handle
+  /// info
+  void *whandle = nullptr;
+  SDL_SysWMinfo winfo;
+  SDL_VERSION(&winfo.version);
+  if(!SDL_GetWindowWMInfo(window->ref->handle, &winfo)){
+    shido::error(std::string("SDL: ")+SDL_GetError());
+    return nullptr;
+  }
+  /// handle
+  switch(winfo.subsystem){
+#ifdef SDL_VIDEO_DRIVER_WINDOWS
+    case SDL_SYSWM_WINDOWS: whandle = (void*)winfo.info.win.window; break;
+#endif
+#ifdef SDL_VIDEO_DRIVER_X11
+    case SDL_SYSWM_X11: whandle = (void*)winfo.info.x11.window; break;
+#endif
+    default: break;
+  }
+  if(!whandle){
+    shido::error("Native window handle not supported.");
+    return nullptr;
+  }
+  shido::Graphics &graphics = shido::Graphics::get();
+  filament::SwapChain *handle = graphics.engine->createSwapChain(whandle);
+  if(!handle){
+    shido::error("Filament SwapChain creation failed.");
+    return nullptr;
+  }
+  return new shido_SwapChainRef{std::make_shared<shido_SwapChain>(window, handle)};
+}

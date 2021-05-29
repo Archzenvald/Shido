@@ -7,6 +7,7 @@ local core = require("shido.core")
 
 -- C API
 API.defineHandle("Window")
+API.defineHandle("SwapChain")
 ffi.cdef[[
 shido_WindowRef* shido_Window_new(const char *title, int w, int h);
 shido_WindowRef* shido_Window_get(uint32_t id);
@@ -43,10 +44,14 @@ bool shido_Window_isMaximized(shido_Window *self);
 bool shido_Window_isMinimized(shido_Window *self);
 bool shido_Window_hasFocus(shido_Window *self);
 bool shido_Window_hasMouseFocus(shido_Window *self);
+
+shido_SwapChainRef* shido_SwapChain_new(shido_WindowRef *window);
 ]]
 local L = ffi.load("shido")
 
 local graphics = shido.graphics
+
+-- Window
 
 function graphics.newWindow(title, w, h)
   local ref = L.shido_Window_new(title, w, h)
@@ -60,7 +65,7 @@ function graphics.getWindow(id)
   if ref ~= nil then return API.claimFreeRef(ref) end
 end
 
--- Methods.
+-- methods
 local Window = {}
 
 -- Get window display index.
@@ -140,5 +145,17 @@ function Window:isMinimized() return L.shido_Window_isMinimized(self.obj) end
 function Window:hasFocus() return L.shido_Window_hasFocus(self.obj) end
 function Window:hasMouseFocus() return L.shido_Window_hasMouseFocus(self.obj) end
 
-
 API.implementHandle("Window", Window)
+
+-- SwapChain
+
+function graphics.newSwapChain(window)
+  local ref = L.shido_SwapChain_new(window.ref)
+  if ref == nil then core.error() end
+  return API.claimFreeRef(ref)
+end
+
+-- methods
+local SwapChain = {}
+
+API.implementHandle("SwapChain", SwapChain)

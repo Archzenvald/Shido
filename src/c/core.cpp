@@ -18,7 +18,7 @@ Core::Core()
 {
   ok = (SDL_Init(0) == 0);
   if(!ok)
-    shido::error(std::string("SDL: ")+SDL_GetError());
+    err = std::string("SDL: ")+SDL_GetError();
 }
 
 Core::~Core()
@@ -52,7 +52,10 @@ const char* shido_core_getExecutableDirectory()
 
 bool shido_core_init()
 {
-  return shido::Core::get().ok;
+  shido::Core &state = shido::Core::get();
+  if(!state.ok)
+    shido::error(state.err);
+  return state.ok;
 }
 
 // Time.

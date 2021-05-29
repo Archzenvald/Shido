@@ -3,12 +3,41 @@
 
 #include "graphics.hpp"
 
+namespace shido{
+
+Graphics::Graphics()
+{
+  // init SDL
+  ok = (SDL_InitSubSystem(SDL_INIT_VIDEO) == 0);
+  if(ok){
+    // init Filament
+    engine = filament::Engine::create();
+    ok = !!engine;
+    if(!ok) err = std::string("Filament engine creation failed.");
+  }
+  else
+    err = std::string("SDL: ")+SDL_GetError();
+}
+
+Graphics::~Graphics()
+{
+  if(ok) filament::Engine::destroy(engine);
+}
+
+Graphics& Graphics::get()
+{
+  static Graphics state;
+  return state;
+}
+
+} // namespace shido
+
 bool shido_graphics_init()
 {
-  bool ok = (SDL_InitSubSystem(SDL_INIT_VIDEO) == 0);
-  if(!ok)
-    shido::error(std::string("SDL: ")+SDL_GetError());
-  return ok;
+  shido::Graphics &state = shido::Graphics::get();
+  if(!state.ok)
+    shido::error(state.err);
+  return state.ok;
 }
 
 int shido_graphics_getDisplayCount(){ return SDL_GetNumVideoDisplays(); }

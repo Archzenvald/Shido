@@ -11,8 +11,12 @@ extern "C"{
 #include "../API.h"
 
 SHIDO_HANDLE_H(Window)
+SHIDO_HANDLE_H(SwapChain)
+
+// Window
+
 // Create window.
-// return new reference or NULL on failure (see shido_core_getError())
+// return new reference or NULL on failure (error)
 SHIDO_API shido_WindowRef* shido_Window_new(const char *title, int w, int h);
 // Get window from id.
 // return new reference or NULL
@@ -60,6 +64,12 @@ SHIDO_API bool shido_Window_isMaximized(shido_Window *self);
 SHIDO_API bool shido_Window_isMinimized(shido_Window *self);
 SHIDO_API bool shido_Window_hasFocus(shido_Window *self);
 SHIDO_API bool shido_Window_hasMouseFocus(shido_Window *self);
+
+// SwapChain
+
+// Create swap chain from a window.
+// return new reference or NULL on failure (error)
+SHIDO_API shido_SwapChainRef* shido_SwapChain_new(shido_WindowRef *window);
 
 #ifdef __cplusplus
 }
