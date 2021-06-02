@@ -10,6 +10,7 @@ extern "C"{
 
 #include "../API.h"
 #include "Window.h"
+#include "View.h"
 
 SHIDO_HANDLE_H(Renderer)
 
@@ -17,6 +18,7 @@ SHIDO_HANDLE_H(Renderer)
 // return new reference or NULL on failure (error)
 SHIDO_API shido_RendererRef* shido_Renderer_new();
 SHIDO_API bool shido_Renderer_beginFrame(shido_Renderer *self, shido_SwapChainRef *swapchain);
+SHIDO_API void shido_Renderer_render(shido_Renderer *self, shido_View *view);
 SHIDO_API void shido_Renderer_endFrame(shido_Renderer *self);
 
 #ifdef __cplusplus

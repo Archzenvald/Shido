@@ -30,6 +30,7 @@ shido.graphics = graphics
 -- load handle types
 require("shido.graphics.Window")
 require("shido.graphics.Renderer")
+require("shido.graphics.View")
 
 function graphics.init()
   if not L.shido_graphics_init() then core.error() end

@@ -29,6 +29,8 @@ set(H_SRCS
   ../src/c/graphics/Window.hpp
   ../src/c/graphics/Renderer.h
   ../src/c/graphics/Renderer.hpp
+  ../src/c/graphics/View.h
+  ../src/c/graphics/View.hpp
   ../src/c/event.h
   ../src/c/event.hpp
   ../src/c/input.h
@@ -39,6 +41,7 @@ set(I_SRCS
   ../src/c/graphics.cpp
   ../src/c/graphics/Window.cpp
   ../src/c/graphics/Renderer.cpp
+  ../src/c/graphics/View.cpp
   ../src/c/event.cpp
   ../src/c/input.cpp
 )

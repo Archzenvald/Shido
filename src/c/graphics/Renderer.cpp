@@ -27,6 +27,9 @@ bool shido_Renderer_beginFrame(shido_Renderer *self, shido_SwapChainRef *swapcha
   return self->handle->beginFrame(swapchain->ref->handle);
 }
 
+void shido_Renderer_render(shido_Renderer *self, shido_View *view)
+{ self->handle->render(view->handle); }
+
 void shido_Renderer_endFrame(shido_Renderer *self)
 {
   // unreference swapchain

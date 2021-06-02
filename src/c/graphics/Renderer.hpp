@@ -9,6 +9,7 @@
 #include "../API.hpp"
 #include "../graphics.hpp"
 #include "Window.hpp"
+#include "View.hpp"
 #include <filament/Renderer.h>
 
 SHIDO_HANDLE_HPP(Renderer)
