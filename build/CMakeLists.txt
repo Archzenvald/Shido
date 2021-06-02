@@ -33,6 +33,8 @@ set(H_SRCS
   ../src/c/graphics/View.hpp
   ../src/c/graphics/Scene.h
   ../src/c/graphics/Scene.hpp
+  ../src/c/graphics/Entity.h
+  ../src/c/graphics/Entity.hpp
   ../src/c/event.h
   ../src/c/event.hpp
   ../src/c/input.h
@@ -45,6 +47,7 @@ set(I_SRCS
   ../src/c/graphics/Renderer.cpp
   ../src/c/graphics/View.cpp
   ../src/c/graphics/Scene.cpp
+  ../src/c/graphics/Entity.cpp
   ../src/c/event.cpp
   ../src/c/input.cpp
 )

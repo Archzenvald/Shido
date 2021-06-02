@@ -9,6 +9,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_video.h>
 #include <filament/Engine.h>
+#include <utils/EntityManager.h>
 
 namespace shido{
 
@@ -21,6 +22,7 @@ struct Graphics{
   bool ok;
   std::string err;
   filament::Engine *engine;
+  utils::EntityManager &entity_manager;
 };
 
 }

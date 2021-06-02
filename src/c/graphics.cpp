@@ -5,7 +5,8 @@
 
 namespace shido{
 
-Graphics::Graphics()
+Graphics::Graphics():
+  entity_manager(utils::EntityManager::get())
 {
   // init SDL
   ok = (SDL_InitSubSystem(SDL_INIT_VIDEO) == 0);
