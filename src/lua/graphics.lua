@@ -31,6 +31,7 @@ shido.graphics = graphics
 require("shido.graphics.Window")
 require("shido.graphics.Renderer")
 require("shido.graphics.View")
+require("shido.graphics.Scene")
 
 function graphics.init()
   if not L.shido_graphics_init() then core.error() end
