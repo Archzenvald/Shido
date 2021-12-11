@@ -20,7 +20,9 @@ NOTE: The *C* library, although independently usable, is not designed to be a st
 
 .The framework is built on some major dependencies:
 - The https://www.libsdl.org/index.php[SDL2] library.
+- The https://libuv.org/[libuv] event loop.
 - The https://github.com/google/filament[Filament] rendering engine.
+- The https://skia.org/[Skia] 2D graphics library.
 - The https://github.com/bulletphysics/bullet3[Bullet Physics] engine.
 - The http://luajit.org/luajit.html[LuaJIT] (2.1) VM.
 
@@ -36,6 +38,6 @@ The main targets are desktop platforms: *Windows* and *Linux*.
 
 Ultimately, *Android* could be supported for mobile platforms.
 
-*iOS* and *macOS* might be supported, but are not planned.
+*iOS* and *macOS* will probably never be supported because of their hostility towards JIT compilation and FFI (dynamic code generation/loading in general) which conflicts with the principles of the framework.
 
 *Web* will probably never be supported because of the low-level requirements of the framework.
