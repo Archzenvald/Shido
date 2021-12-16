@@ -7,21 +7,28 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-*Shīdo* (*シード*) is a 3D game framework which aims to be simple and powerful. It shares similarities with the https://love2d.org/[LÖVE] framework.
+*Shīdo* (*シード*) is a 2D/3D game framework which aims to be simple and powerful. It shares similarities with the https://love2d.org/[LÖVE] framework.
 
-One key principle of the framework is to expose and work at different levels of abstraction.
+.Principles
+Levels of abstraction:: The framework tries to work at, and expose, different levels of abstraction; from the highest levels, e.g. Lua, to the lowest levels, e.g. the C API. It is done in that order, i.e. if something can be directly written in Lua it will not get an implementation at a lower level.
+
+Modularity:: The framework may be used from a standalone LuaJIT environment and only some of its components may be loaded.
+
+API design:: The focus of the framework is on API design, i.e. any custom implementation must be avoided if a suitable library already exists. The framework mostly acts as a glue between various dependencies.
+
+No backward compatibility:: An application is bound to a specific version of the framework. Having a compatibility constraint would be detrimental for the project considering the amount of third-party dependencies and the complex, custom build, end-user nature of game development.
 
 .The framework is made up of:
 - A *C* API, the *shido* shared/dynamic library.
 - A Lua(JIT) API, built on the *C* API with the FFI.
 - A runtime environment to launch an app.
 
-NOTE: The *C* library, although independently usable, is not designed to be a standalone API for the framework. The Lua API is at the highest level and calls the C API, thus some parts of the framework may be exclusively written in Lua.
+NOTE: The *C* library, although independently usable, is not designed to be a standalone API for the framework, i.e. code may be exclusively written in Lua.
 
 .The framework is built on some major dependencies:
 - The https://www.libsdl.org/index.php[SDL2] library.
 - The https://libuv.org/[libuv] event loop.
-- The https://github.com/google/filament[Filament] rendering engine.
+- The https://github.com/google/filament[Filament] 3D rendering engine.
 - The https://skia.org/[Skia] 2D graphics library.
 - The https://github.com/bulletphysics/bullet3[Bullet Physics] engine.
 - The http://luajit.org/luajit.html[LuaJIT] (2.1) VM.
